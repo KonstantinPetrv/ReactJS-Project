@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ProductService from '../services/product-service';
 import '../css/details.css'
 
@@ -67,17 +67,24 @@ class ProductDetails extends Component {
                                 <div className="action">
                                     {
                                         window.localStorage.getItem('auth_token') ? (
-                                            <button className="add-to-cart btn btn-default" type="button" onClick={() => this.addProduct()}>add to cart</button>
+                                            <button className="btn btn-primary" type="button" onClick={() => this.addProduct()}>Add to cart</button>
                                         )
                                             : (
-                                                <button className="add-to-cart btn btn-default" type="button" disabled="true" >add to cart</button>
+                                                <button className="btn btn-primary" type="button" disabled="true" >Add to cart</button>
                                             )
 
                                     }
                                     {
                                         window.localStorage.getItem('roles') ?
                                             window.localStorage.getItem('roles').includes('Admin') ? (
-                                                <button className="like btn btn-default" type="button"><span className="fa fa-heart">Edit</span></button>
+                                                <div className="top-buffer">
+                                                    <NavLink to={`/product/edit/${this.props.match.params.id}`}>
+                                                        <button className="btn btn-warning" type="button"><span className="fa fa-heart">Edit</span></button>
+                                                    </NavLink>
+                                                    <NavLink to={`/product/delete/${this.props.match.params.id}`} >
+                                                        <button className="btn btn-danger" type="button"><span className="fa fa-heart">Delete</span></button>
+                                                    </NavLink>
+                                                </div>
                                             ) : null
                                             : null
                                     }
