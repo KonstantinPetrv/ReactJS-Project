@@ -10,6 +10,7 @@ import Login from './views/login';
 import Logout from './views/logout';
 import ProductCreate from './views/product-create';
 import ProductService from './services/product-service';
+import ProductDetails from './views/product-details';
 
 class App extends Component {
   static service = new ProductService();
@@ -26,6 +27,7 @@ class App extends Component {
               <Route path="/login" component={Login} />
               <Route path="/logout" component={Logout} />
               <Route path="/product/create" component={ProductCreate} />
+              <Route path="/product/details/:id" component={ProductDetails} />
               <Route component={NotFound} />
             </Switch>
           </Fragment>

@@ -28,9 +28,13 @@ class Home extends Component {
         return (
             <div>
                 <h2>Home Page</h2>
-                {this.state.products.map((product) => {
-                    return <ProductDisplay product={product} />
-                })}
+                <ul className="list-inline">
+                    {this.state.products.map((product) => {
+                        return (<li key={product._id} className="list-inline-item top-buffer">
+                            <ProductDisplay product={product} />
+                        </li>)
+                    })}
+                </ul>
             </div>
         )
     }

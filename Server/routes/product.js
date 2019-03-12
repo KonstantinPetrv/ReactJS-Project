@@ -43,12 +43,6 @@ function validateProductForm(payload) {
 }
 
 router.post('/create', (req, res) => {
-
-    // return res.status(200).json({
-    //     success: true,
-    //     message: req.body.roles
-    // })
-
     const productObj = req.body;
     if (productObj.roles.indexOf('Admin') > -1) {
         const validationResult = validateProductForm(productObj)
@@ -155,6 +149,15 @@ router.get('/all', (req, res) => {
         .find()
         .then(products => {
             res.status(200).json(products)
+        })
+})
+
+router.get('/details/:id', (req, res) => {
+    const id = req.params.id;
+    Product
+        .findById(id)
+        .then(product => {
+            res.status(200).json(product)
         })
 })
 
