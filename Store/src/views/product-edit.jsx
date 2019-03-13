@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import ProductService from '../services/product-service';
 
-class ProductCreate extends Component {
+class ProductEdit extends Component {
     static service = new ProductService();
 
     state = {
@@ -30,10 +30,25 @@ class ProductCreate extends Component {
             roles: window.localStorage.getItem('roles')
         }
 
-        ProductCreate.service.create(credentials)
+        ProductEdit.service.edit(this.props.match.params.id, credentials)
             .then((data) => {
-                console.log(data.message)
+                console.log(data.message);
+                this.setState({
+                    success: true
+                });
             }).catch((err) => console.error(err));
+    }
+
+    componentWillMount() {
+        ProductEdit.service.details(this.props.match.params.id)
+            .then(body => {
+                this.setState({
+                    title: body.title,
+                    description: body.description,
+                    price: body.price,
+                    image: body.image,
+                })
+            })
     }
 
     render() {
@@ -41,10 +56,11 @@ class ProductCreate extends Component {
         return (
             <div className="col-md-6 container">
                 {this.state.success
-                    ? <Redirect to="/" />
+                    ? <Redirect to={`/product/details/${this.props.match.params.id}`} />
                     : null
                 }
-                <form className="form-group" onSubmit={this.handleSubmit}>
+                <h2>Edit</h2>
+                <form className="form-group top-buffer" onSubmit={this.handleSubmit}>
                     <div>
                         <label className="label label-default" htmlFor="title">Title: </label>
                         <input
@@ -101,4 +117,4 @@ class ProductCreate extends Component {
     }
 }
 
-export default ProductCreate;
+export default ProductEdit;

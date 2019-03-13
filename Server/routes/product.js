@@ -85,63 +85,64 @@ router.post('/create', (req, res) => {
 })
 
 router.post('/edit/:id', authCheck, (req, res) => {
-    // if (req.user.roles.indexOf('Admin') > -1) {
-    //     const productId = req.params.id
-    //     const productObj = req.body
-    //     const validationResult = validateProductForm(productObj)
-    //     if (!validationResult.success) {
-    //         return res.status(200).json({
-    //             success: false,
-    //             message: validationResult.message,
-    //             errors: validationResult.errors
-    //         })
-    //     }
+    const productObj = req.body
+    if (productObj.roles.indexOf('Admin') > -1) {
+        delete productObj.roles;
+        const productId = req.params.id
+        const validationResult = validateProductForm(productObj)
+        if (!validationResult.success) {
+            return res.status(200).json({
+                success: false,
+                message: validationResult.message,
+                errors: validationResult.errors
+            })
+        }
 
-    //     Product
-    //         .findById(productId)
-    //         .then(existingProduct => {
-    //             existingProduct.title = productObj.title
-    //             existingProduct.author = productObj.author
-    //             existingProduct.genres = productObj.genres
-    //             existingProduct.description = productObj.description
-    //             existingProduct.price = productObj.price
-    //             existingProduct.image = productObj.image
+        Product
+            .findById(productId)
+            .then(existingProduct => {
+                existingProduct.title = productObj.title
+                existingProduct.author = productObj.author
+                existingProduct.genres = productObj.genres
+                existingProduct.description = productObj.description
+                existingProduct.price = productObj.price
+                existingProduct.image = productObj.image
 
-    //             existingProduct
-    //                 .save()
-    //                 .then(editedProduct => {
-    //                     res.status(200).json({
-    //                         success: true,
-    //                         message: 'Product edited successfully.',
-    //                         data: editedProduct
-    //                     })
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log(err)
-    //                     let message = 'Something went wrong :( Check the form for errors.'
-    //                     if (err.code === 11000) {
-    //                         message = 'Product with the given name already exists.'
-    //                     }
-    //                     return res.status(200).json({
-    //                         success: false,
-    //                         message: message
-    //                     })
-    //                 })
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //             const message = 'Something went wrong :( Check the form for errors.'
-    //             return res.status(200).json({
-    //                 success: false,
-    //                 message: message
-    //             })
-    //         })
-    // } else {
-    //     return res.status(200).json({
-    //         success: false,
-    //         message: 'Invalid credentials!'
-    //     })
-    // }
+                existingProduct
+                    .save()
+                    .then(editedProduct => {
+                        res.status(200).json({
+                            success: true,
+                            message: 'Product edited successfully.',
+                            data: editedProduct
+                        })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        let message = 'Something went wrong :( Check the form for errors.'
+                        if (err.code === 11000) {
+                            message = 'Product with the given name already exists.'
+                        }
+                        return res.status(200).json({
+                            success: false,
+                            message: message
+                        })
+                    })
+            })
+            .catch((err) => {
+                console.log(err)
+                const message = 'Something went wrong :( Check the form for errors.'
+                return res.status(200).json({
+                    success: false,
+                    message: message
+                })
+            })
+    } else {
+        return res.status(200).json({
+            success: false,
+            message: 'Invalid credentials!'
+        })
+    }
 })
 
 router.get('/all', (req, res) => {

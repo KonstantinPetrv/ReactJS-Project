@@ -2,12 +2,26 @@
      margin-top: 10px;
     }
 
+.left-buffer{
+     margin-left: 50px;
+}
+
 .home-case{
      border:none; 
      background:white;
 }
 
+.img-border{
+     border:1px solid #021a40
+}
+
 .img-pos{
-     height:200px; 
+     height:200px;
+     width: 20% auto;
      margin-left:-15px;
 }
+
+.container img {
+     max-height: 100%;
+     max-width: 100%;
+   }

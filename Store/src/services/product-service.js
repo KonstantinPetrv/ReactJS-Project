@@ -5,7 +5,8 @@ class ProductService {
         this.baseUrl = "http://localhost:9999/product";
         this.createProductUrl = this.baseUrl + '/create';
         this.allUrl = this.baseUrl + '/all';
-        this.detailsUrl = this.baseUrl + '/details/'
+        this.detailsUrl = this.baseUrl + '/details/';
+        this.editUrl = this.baseUrl + '/edit/';
     }
 
     create(credentials) {
@@ -18,6 +19,10 @@ class ProductService {
 
     details(id) {
         return get(this.detailsUrl + id);
+    }
+
+    edit(id, credentials) {
+        return post(this.editUrl + id, credentials);
     }
 }
 

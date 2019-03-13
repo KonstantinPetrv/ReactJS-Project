@@ -11,25 +11,29 @@ import Logout from './views/logout';
 import ProductCreate from './views/product-create';
 import ProductService from './services/product-service';
 import ProductDetails from './views/product-details';
+import ProductEdit from './views/product-edit';
 
 class App extends Component {
   static service = new ProductService();
 
   render() {
     return (
-      <div className="container">
+      <div>
         <BrowserRouter>
           <Fragment>
             <Navigation />
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-              <Route path="/logout" component={Logout} />
-              <Route path="/product/create" component={ProductCreate} />
-              <Route path="/product/details/:id" component={ProductDetails} />
-              <Route component={NotFound} />
-            </Switch>
+            <div className="container">
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/register" exact component={Register} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/logout" exact component={Logout} />
+                <Route path="/product/create" exact component={ProductCreate} />
+                <Route path="/product/details/:id" component={ProductDetails} />
+                <Route path="/product/edit/:id" component={ProductEdit} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
           </Fragment>
         </BrowserRouter>
       </div>
