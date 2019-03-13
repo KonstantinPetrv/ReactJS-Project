@@ -65,15 +65,7 @@ class ProductDetails extends Component {
                                 <p className="product-description">{description}</p>
                                 <h4 className="price">current price: <span>{price}$</span></h4>
                                 <div className="action">
-                                    {
-                                        window.localStorage.getItem('auth_token') ? (
-                                            <button className="btn btn-primary" type="button" onClick={() => this.addProduct()}>Add to cart</button>
-                                        )
-                                            : (
-                                                <button className="btn btn-primary" type="button" disabled="true" >Add to cart</button>
-                                            )
-
-                                    }
+                                    <button className="btn btn-primary" type="button" onClick={() => this.addProduct()}>Add to cart</button>
                                     {
                                         window.localStorage.getItem('roles') ?
                                             window.localStorage.getItem('roles').includes('Admin') ? (
@@ -82,7 +74,7 @@ class ProductDetails extends Component {
                                                         <button className="btn btn-warning" type="button"><span className="fa fa-heart">Edit</span></button>
                                                     </NavLink>
                                                     <NavLink to={`/product/delete/${this.props.match.params.id}`} >
-                                                        <button className="btn btn-danger" type="button"><span className="fa fa-heart">Delete</span></button>
+                                                        <button className="btn btn-danger btn-left-spacing" type="button"><span className="fa fa-heart">Delete</span></button>
                                                     </NavLink>
                                                 </div>
                                             ) : null

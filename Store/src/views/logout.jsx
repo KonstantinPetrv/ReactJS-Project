@@ -5,7 +5,10 @@ class Logout extends React.Component {
     constructor(props) {
         super(props);
         
-        window.localStorage.clear();
+        window.localStorage.removeItem('auth_token');
+        window.localStorage.removeItem('roles');
+        window.localStorage.removeItem('username');
+
     }
 
     render() {

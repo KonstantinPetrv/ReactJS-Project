@@ -4,18 +4,18 @@ import { NavLink } from 'react-router-dom';
 const ProductDisplay = (props) => {
     const { _id, title, image, price } = props.product;
     return (
-        <div className="col-xs-6 home-case">
+        <div className="col-xs-6 home-case div-container">
+            <NavLink to={`product/details/${_id}`}>
+                <div className="col-xs-12 image-container">
+                    <img className="img-pos" src={image} alt="missing" />
+                </div>
+            </NavLink>
             <div className="col-xs-12">
                 <h3 className="text-center">{title}</h3>
             </div>
-            <div className="col-xs-12 image-container">
-                <NavLink to={`product/details/${_id}`}>
-                    <img className="img-border img-pos" src={image} alt="missing" />
-                </NavLink>
-            </div>
-            <p className="col-xs-6 home-case text-center">
+            <h4 className="text-md-left home-case price">
                 {price}$
-            </p>
+            </h4>
         </div>
     );
 };

@@ -77,19 +77,10 @@ class ProductCreate extends Component {
                             className="form-control"
                             name="price"
                             id="price"
-                            placeholder="Title"
+                            placeholder="Price"
                             value={price}
                             onChange={this.handleChange} />
                     </div>
-                    {/* <div className="custom-file top-buffer">
-                        <input
-                            type="file"
-                            className="form-control-file"
-                            name="image"
-                            id="image"
-                            accept="image/png, image/jpeg" />
-                        <label htmlFor="image"></label>
-                    </div> */}
                     <div>
                         <label className="label label-default" htmlFor="image">Image: </label>
                         <input
@@ -97,7 +88,7 @@ class ProductCreate extends Component {
                             className="form-control"
                             name="image"
                             id="title"
-                            placeholder="Title"
+                            placeholder="Image Url:"
                             value={image}
                             onChange={this.handleChange} />
                     </div>

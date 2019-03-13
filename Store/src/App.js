@@ -12,9 +12,17 @@ import ProductCreate from './views/product-create';
 import ProductService from './services/product-service';
 import ProductDetails from './views/product-details';
 import ProductEdit from './views/product-edit';
+import ProductDelete from './views/product-delete';
+import Cart from './views/cart';
 
 class App extends Component {
   static service = new ProductService();
+
+  componentWillMount() {
+    if (!window.localStorage.getItem('cart')) {
+      window.localStorage.setItem('cart', []);
+    }
+  }
 
   render() {
     return (
@@ -31,6 +39,8 @@ class App extends Component {
                 <Route path="/product/create" exact component={ProductCreate} />
                 <Route path="/product/details/:id" component={ProductDetails} />
                 <Route path="/product/edit/:id" component={ProductEdit} />
+                <Route path="/product/delete/:id" component={ProductDelete} />
+                <Route path="/cart" component={Cart} />
                 <Route component={NotFound} />
               </Switch>
             </div>

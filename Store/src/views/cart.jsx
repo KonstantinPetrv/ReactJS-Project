@@ -1,0 +1,86 @@
+import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
+
+import ProductService from "../services/product-service";
+import OrderService from "../services/order-service";
+import ProductCartDisplay from "../components/prouct-order-display";
+
+
+class Cart extends Component {
+    static orderService = new OrderService();
+    static productService = new ProductService();
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            ids: [...window.localStorage.getItem('cart').trim().split(',')],
+            products: [],
+            isOrdered: false
+        }
+    }
+
+    removeProduct = (product) => {
+        if (product === 'all') {
+            window.localStorage.setItem('cart', []);
+            this.setState({
+                products: []
+            })
+        } else {
+
+        }
+    }
+
+    postOrder = () => {
+        const data = {
+            products: this.state.ids
+        }
+
+        Cart.orderService.post(data)
+            .then(() => {
+                this.setState({
+                    isOrdered: true
+                });
+            }).catch(err => console.error(err))
+    }
+
+    componentWillMount() {
+
+        Cart.productService.cart(this.state.ids)
+            .then(body => {
+                this.setState({
+                    products: body
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.isOrdered
+                    ? <Redirect to="/" />
+                    : null
+                }
+                <h2>Cart</h2>
+                <ul className="list-group">
+                    {this.state.products.map((product) => {
+                        return (<li key={product._id} className="list-group-item top-buffer left-buffer li-container">
+                            <ProductCartDisplay product={product} />
+                        </li>)
+                    })}
+                </ul>
+                <div className="btn-toolbar float-right top-buffer">
+                    <div className="btn-toolbar mr-2">
+                        <button className="btn btn-primary" onClick={() => this.removeProduct('all')}>Empty Cart</button>
+                    </div>
+                    <div className="btn-toolbar mr-2">
+                        <button className="btn btn-primary" onClick={() => this.postOrder()} >Checkout</button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Cart;
