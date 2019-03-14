@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ToastContainer} from 'react-toastify';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
@@ -17,6 +17,9 @@ import ProductEdit from './views/product-edit';
 import ProductDelete from './views/product-delete';
 import Checkout from './views/orders-checkout';
 import OrdersPending from './views/orders-pending';
+import AuthRoute from './components/auth-route';
+import UserInfo from './views/user-info';
+import SearchResults from './views/search-results';
 
 class App extends Component {
   static service = new ProductService();
@@ -33,19 +36,47 @@ class App extends Component {
         <BrowserRouter>
           <Fragment>
             <Navigation />
-            <ToastContainer autoClose={2000} />
+            <ToastContainer autoClose={1500} />
             <div className="container">
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/register" exact component={Register} />
-                <Route path="/login" exact component={Login} />
+                <Route path="/product/search" component={SearchResults} />
+                <Route path="/register" exact render={() => (
+                  !!window.localStorage.getItem('auth_token')
+                    ? <Redirect to='/' />
+                    : <Register />
+                )} />
+                <Route path="/login" exact render={() => (
+                  !!window.localStorage.getItem('auth_token')
+                    ? <Redirect to='/' />
+                    : <Login />
+                )} />
                 <Route path="/logout" exact component={Logout} />
-                <Route path="/product/create" exact component={ProductCreate} />
+                <AuthRoute path="/product/create" exact
+                  component={ProductCreate}
+                  roles={window.localStorage.getItem('roles')}
+                  allowedRoles={['Admin']}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+                <AuthRoute path="/product/edit/:id"
+                  component={ProductEdit}
+                  roles={window.localStorage.getItem('roles')}
+                  allowedRoles={['Admin']}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route path="/product/details/:id" component={ProductDetails} />
-                <Route path="/product/edit/:id" component={ProductEdit} />
-                <Route path="/product/delete/:id" component={ProductDelete} />
-                <Route path="/orders/pending" exact component={OrdersPending} />
+                <AuthRoute path="/product/delete/:id"
+                  component={ProductDelete}
+                  roles={window.localStorage.getItem('roles')}
+                  allowedRoles={['Admin']}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+                <AuthRoute path="/orders/pending" exact
+                  component={OrdersPending}
+                  roles={window.localStorage.getItem('roles')}
+                  allowedRoles={['Admin']}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route path="/orders/checkout" component={Checkout} />
+                <AuthRoute path="/user/info"
+                  component={UserInfo}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route component={NotFound} />
               </Switch>
             </div>

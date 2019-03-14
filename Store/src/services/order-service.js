@@ -1,4 +1,4 @@
-import { get, post } from '../data/crud';
+import { get, post, remove } from '../data/crud';
 
 class OrderService {
     constructor() {
@@ -6,6 +6,8 @@ class OrderService {
         this.submitUrl = this.baseUrl + '/submit';
         this.pendingUrl = this.baseUrl + '/pending';
         this.approveUrl = this.baseUrl + '/approve/';
+        this.userOrdersUrl = this.baseUrl + '/user';
+        this.removeUrl = this.baseUrl + '/delete/';
     }
 
     post(data) {
@@ -18,6 +20,14 @@ class OrderService {
 
     postApprove(id) {
         return post(this.approveUrl + id);
+    }
+
+    getUserOrders() {
+        return get(this.userOrdersUrl);
+    }
+
+    remove(id) {
+        return remove(this.removeUrl + id);
     }
 }
 

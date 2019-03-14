@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import ProductService from "../services/product-service";
 import OrderService from "../services/order-service";
@@ -20,32 +21,31 @@ class Checkout extends Component {
         }
     }
 
-    removeProduct = (product) => {
+    removeProduct = (product, isMessage = true) => {
         if (product === 'all') {
             window.localStorage.setItem('cart', []);
             this.setState({
-                products: []
+                products: [],
+                ids: ''
             })
+            if (isMessage) toast.info('Emptied cart.')
         } else {
+            let cart = window.localStorage.getItem('cart').split(',');
 
+            cart.splice(cart.indexOf(product), 1);
+            window.localStorage.setItem('cart', cart);
+
+            this.setState({
+                ids: cart,
+                products: []
+            }, () => {
+                toast.info('Item removed.');
+                this.getCart();
+            })
         }
     }
 
-    postOrder = () => {
-        const data = {
-            products: this.state.ids
-        }
-
-        Checkout.orderService.post(data)
-            .then(() => {
-                this.removeProduct('all');
-                this.setState({
-                    isOrdered: true
-                });
-            }).catch(err => console.error(err))
-    }
-
-    componentWillMount() {
+    getCart = () => {
         if (window.localStorage.getItem('cart')) {
             Checkout.productService.cart(this.state.ids)
                 .then(body => {
@@ -55,6 +55,24 @@ class Checkout extends Component {
                 })
                 .catch(err => console.log(err));
         }
+    }
+    postOrder = () => {
+        const data = {
+            products: this.state.ids
+        }
+
+        Checkout.orderService.post(data)
+            .then(() => {
+                toast.success('Ordered.');
+                this.removeProduct('all', false);
+                this.setState({
+                    isOrdered: true
+                });
+            }).catch(err => console.error(err))
+    }
+
+    componentWillMount() {
+        this.getCart()
     }
 
     render() {
@@ -68,7 +86,7 @@ class Checkout extends Component {
                 <ul className="list-group">
                     {this.state.products.map((product) => {
                         return (<li key={product._id} className="list-group-item top-buffer left-buffer li-container">
-                            <ProductCartDisplay product={product} />
+                            <ProductCartDisplay product={product} remove={this.removeProduct} />
                         </li>)
                     })}
                 </ul>

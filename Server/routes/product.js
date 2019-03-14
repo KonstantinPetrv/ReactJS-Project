@@ -263,4 +263,16 @@ router.delete('/delete/:id', authCheck, (req, res) => {
     }
 })
 
+router.get('/search', (req, res) => {
+    const searchS = req.query.qr.toLowerCase();
+
+    Product
+        .find()
+        .then(products => {
+            const filtered = products.filter(a => a.title.toLowerCase().includes(searchS))
+
+            res.status(200).json(filtered)
+        })
+})
+
 module.exports = router

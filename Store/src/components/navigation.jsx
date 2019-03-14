@@ -9,18 +9,18 @@ const Navigation = (props) => {
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
                             <NavLink to="/" className="navbar-brand">Home</NavLink>
-                            {window.localStorage.getItem('roles')
-                                ? window.localStorage.getItem('roles').indexOf('Admin') + 1
-                                    ? (<span>
-                                        <NavLink to="/product/create" className="navbar-brand">Add Product</NavLink>
-                                        <NavLink to="/orders/pending" className="navbar-brand">Pending Orders</NavLink>
-                                    </span>
-                                    )
-                                    : null
-                                : null
-                            }
-
                         </li>
+                        {window.localStorage.getItem('roles')
+                            ? window.localStorage.getItem('roles').indexOf('Admin') + 1
+                                ? (<li className="nav-item active" >
+                                    <NavLink to="/product/create" className="navbar-brand">Add Product</NavLink>
+                                    <NavLink to="/orders/pending" className="navbar-brand">Pending Orders</NavLink>
+                                </li>
+                                )
+                                : null
+                            : null
+                        }
+
                     </ul>
                 </div>
                 <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -34,7 +34,7 @@ const Navigation = (props) => {
                                         </NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink to="/" className="navbar-brand">
+                                        <NavLink to="/user/info" className="navbar-brand">
                                             {window.localStorage.getItem('username')}
                                         </NavLink>
                                     </li>

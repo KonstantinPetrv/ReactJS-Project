@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import OrderService from '../services/order-service';
 import Orders from "../components/orders";
 
-class OrdersPending extends Component {
+class UserInfo extends Component {
     static service = new OrderService();
 
     constructor(props) {
@@ -14,37 +14,36 @@ class OrdersPending extends Component {
         }
     }
 
-    approveOrder = (id) => {
-        OrdersPending.service.postApprove(id)
-            .then((data) => {
-                toast.success('Order Approved')
-                this.getPending()
-            })
-    }
-
-    getPending = () => {
-        OrdersPending.service.getPending()
-            .then(body => {
+    getOrders = () => {
+        UserInfo.service.getUserOrders()
+            .then((body) => {
                 this.setState({
                     orders: body
                 })
             })
+    }
 
+    cancelOrder = (id) => {
+        UserInfo.service.remove(id)
+            .then((data) => {
+                toast.success(data.message)
+                this.getOrders();
+            }).catch((err) => console.error(err))
     }
 
     componentWillMount() {
-        this.getPending();
+        this.getOrders();
     }
 
     render() {
         return (
             <div>
-                <h2>Pending Orders</h2>
+                <h2>{window.localStorage.getItem('username')}</h2>
+                <h3 className="top-buffer">Order History:</h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col" className="text-center">Status</th>
-                            <th scope="col" className="text-center">User</th>
                             <th scope="col" className="text-center">Products</th>
                             <th scope="col" className="text-center">Price</th>
                             <th scope="col" className="text-center">Action</th>
@@ -65,9 +64,8 @@ class OrdersPending extends Component {
                                     orders={orders}
                                     price={price}
                                     products={productNames.join(', ')}
-                                    action={productNames.join(', ')}
-                                    approve={this.approveOrder}
-                                    isAdmin={true}
+                                    action={this.cancelOrder}
+                                    isAdmin={false}
                                 />
                             )
                         })}
@@ -78,4 +76,4 @@ class OrdersPending extends Component {
     }
 }
 
-export default OrdersPending;
+export default UserInfo;

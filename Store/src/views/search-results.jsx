@@ -15,8 +15,9 @@ class Home extends Component {
     }
 
     componentWillMount() {
-        Home.service.all()
+        Home.service.getSearch(this.props.location.search)
             .then(body => {
+                console.log(body);
                 this.setState({
                     products: body
                 })

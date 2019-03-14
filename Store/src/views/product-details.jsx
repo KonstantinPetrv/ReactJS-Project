@@ -12,7 +12,7 @@ class ProductDetails extends Component {
         description: '',
         price: '',
         image: '',
-        reviews: []
+        reviews: [],
     }
 
     addProduct = () => {
@@ -66,7 +66,7 @@ class ProductDetails extends Component {
                                     <span className="review-no">{reviews.length} reviews</span>
                                 </div>
                                 <p className="product-description">{description}</p>
-                                <h4 className="price">current price: <span>{price}$</span></h4>
+                                <h4 className="price">current price: <span>{typeof (price) === 'number' ? price.toFixed(2) : null}$</span></h4>
                                 <div className="action">
                                     <button className="btn btn-primary" type="button" onClick={() => this.addProduct()}>Add to cart</button>
                                     {

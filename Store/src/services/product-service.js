@@ -9,6 +9,7 @@ class ProductService {
         this.editUrl = this.baseUrl + '/edit/';
         this.removeUrl = this.baseUrl + '/delete/';
         this.cartUrl = this.baseUrl + '/order';
+        this.searchUrl = this.baseUrl + '/search/';
     }
 
     create(credentials) {
@@ -17,6 +18,10 @@ class ProductService {
 
     all() {
         return get(this.allUrl);
+    }
+
+    getSearch(query) {
+        return get(this.searchUrl + query);
     }
 
     details(id) {

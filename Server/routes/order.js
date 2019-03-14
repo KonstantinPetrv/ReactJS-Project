@@ -34,6 +34,7 @@ router.post('/submit', authCheck, (req, res) => {
 router.get('/user', authCheck, (req, res) => {
   Order
     .find({ creator: req.user._id })
+    .populate('products')
     .then(orders => {
       res.status(200).json(orders)
     })
@@ -43,7 +44,7 @@ router.get('/pending', authCheck, (req, res) => {
   if (req.user.roles.indexOf('Admin') > -1) {
     Order
       .find({ status: 'Pending' })
-      .populate('creator','username')
+      .populate('creator', 'username')
       .populate('products')
       .then(orders => {
         res.status(200).json(orders)
@@ -95,6 +96,29 @@ router.post('/approve/:id', authCheck, (req, res) => {
         message: message
       })
     })
+})
+
+router.delete('/delete/:id', authCheck, (req, res) => {
+  const id = req.params.id
+  Order
+    .findById(id)
+    .then((order) => {
+      order
+        .remove()
+        .then(() => {
+          return res.status(200).json({
+            success: true,
+            message: 'Order Cancelled'
+          })
+        })
+    })
+    .catch(() => {
+      return res.status(200).json({
+        success: false,
+        message: 'Entry does not exist!'
+      })
+    })
+
 })
 
 module.exports = router

@@ -14,7 +14,7 @@ const ProductDisplay = (props) => {
                 <h3 className="text-center">{title}</h3>
             </div>
             <h4 className="text-md-left home-case price">
-                {price}$
+                {price.toFixed(2)}$
             </h4>
         </div>
     );
