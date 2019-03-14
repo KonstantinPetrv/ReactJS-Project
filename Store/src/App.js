@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import Navigation from './components/navigation';
@@ -31,6 +33,7 @@ class App extends Component {
         <BrowserRouter>
           <Fragment>
             <Navigation />
+            <ToastContainer autoClose={2000} />
             <div className="container">
               <Switch>
                 <Route path="/" exact component={Home} />

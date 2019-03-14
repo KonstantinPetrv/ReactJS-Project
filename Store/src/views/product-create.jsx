@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ProductService from '../services/product-service';
 
 class ProductCreate extends Component {
@@ -31,8 +32,15 @@ class ProductCreate extends Component {
         }
 
         ProductCreate.service.create(credentials)
-            .then((data) => {
-                console.log(data.message)
+            .then((data, err) => {
+                if (!data.success) {
+                    toast.error(data.message);
+                    return;
+                }
+                toast.success(credentials.title + ' created.')
+                this.setState({
+                    success: true
+                })
             }).catch((err) => console.error(err));
     }
 

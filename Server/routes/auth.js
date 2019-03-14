@@ -5,23 +5,18 @@ const validator = require('validator')
 const router = new express.Router()
 
 function validateSignupForm(payload) {
-  const errors = {}
+  const errors = []
   let isFormValid = true
   let message = ''
 
   if (!payload || typeof payload.username !== 'string' || payload.username.trim().length < 4) {
     isFormValid = false
-    errors.username = 'Username must be at least 4 characters long'
+    errors.push('Username must be at least 4 characters long');
   }
-
-  // if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
-  //   isFormValid = false
-  //   errors.email = 'Please provide a correct email address'
-  // }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 3) {
     isFormValid = false
-    errors.password = 'Password must be at least 3 characters long'
+    errors.push('Password must be at least 3 characters long');
   }
 
   if (!isFormValid) {
@@ -36,13 +31,18 @@ function validateSignupForm(payload) {
 }
 
 function validateLoginForm(payload) {
-  const errors = {}
+  const errors = []
   let isFormValid = true
   let message = ''
 
+  if (!payload || typeof payload.username !== 'string' || payload.username.trim().length < 4) {
+    isFormValid = false
+    errors.push('Username must be at least 4 characters long');
+  }
+
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
     isFormValid = false
-    errors.password = 'Please provide your password.'
+    errors.push('Invalid password.');
   }
 
   if (!isFormValid) {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
 import ProductService from '../services/product-service';
 
@@ -32,7 +33,7 @@ class ProductEdit extends Component {
 
         ProductEdit.service.edit(this.props.match.params.id, credentials)
             .then((data) => {
-                console.log(data.message);
+                toast.success('Product edited.');
                 this.setState({
                     success: true
                 });

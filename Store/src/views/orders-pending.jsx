@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from 'react-toastify';
 import OrderService from '../services/order-service';
 import Orders from "../components/orders";
 
@@ -16,6 +17,7 @@ class OrdersPending extends Component {
     approveOrder = (id) => {
         OrdersPending.service.postApprove(id)
             .then((data) => {
+                toast.success('Order Approved')
                 this.getPending()
             })
     }
@@ -37,7 +39,6 @@ class OrdersPending extends Component {
     render() {
         return (
             <div>
-                {console.log(this.state.orders)}
                 <h2>Pending Orders</h2>
                 <table className="table">
                     <thead className="thead-dark">

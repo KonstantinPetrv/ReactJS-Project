@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import AuthenticationService from '../services/authentication-service';
 
 class Register extends Component {
@@ -28,15 +29,27 @@ class Register extends Component {
         Register.service.register(credentials)
             .then((user, err) => {
                 if (err) {
-                    console.error(err)
-                    return;
+                    return console.error(err);
+                }
+                if (!user.success) {
+                    if (user.errors) {
+                        toast.error(user.errors[0])
+                    } else {
+                        toast.error(user.message);
+                    }
                 }
                 return Register.service.login(credentials)
             })
-            .then(({ token, user }) => {
+            .then(({ token, user, success, message }) => {
+                console.log(success);
+                if (!success) {
+                    return;
+                }
                 window.localStorage.setItem('auth_token', token);
                 window.localStorage.setItem('username', user.username);
                 window.localStorage.setItem('roles', user.roles);
+
+                toast.message(message);
 
                 this.setState({
                     isLogged: true

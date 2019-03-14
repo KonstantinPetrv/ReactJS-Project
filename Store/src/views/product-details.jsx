@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ProductService from '../services/product-service';
 import '../css/details.css'
 
@@ -19,8 +20,10 @@ class ProductDetails extends Component {
             let products = [window.localStorage.getItem('cart')];
             products.push(this.props.match.params.id);
             window.localStorage.setItem('cart', products);
+            toast.info(this.state.title + ' added to cart.');
         } else {
             window.localStorage.setItem('cart', [this.props.match.params.id]);
+            toast.info(this.state.title + ' added to cart.');
         }
     }
 

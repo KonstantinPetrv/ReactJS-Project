@@ -1,9 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ProductService from '../services/product-service';
 
 class ProductDelete extends React.Component {
     static service = new ProductService();
+    state = {
+        success: false
+    }
 
     removeProduct = () => {
         const id = this.props.match.params.id;
@@ -12,9 +16,12 @@ class ProductDelete extends React.Component {
         };
 
         ProductDelete.service.remove(id, credentials)
-            .then((data) => (
-                <Redirect to="/" />
-            )).catch((err) => (
+            .then((data) => {
+                toast.success('Product deleted.');
+                this.setState({
+                    success: true
+                })
+            }).catch((err) => (
                 < Redirect to={`/product/details/${id}`} />
             ))
     }
@@ -22,9 +29,7 @@ class ProductDelete extends React.Component {
     render() {
         return (
             <div>
-                {
-                    this.removeProduct()
-                }
+                {this.state.success ? <Redirect to="/" /> : this.removeProduct()}
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import AuthenticationService from '../services/authentication-service';
 
 class Login extends Component {
@@ -26,14 +27,20 @@ class Login extends Component {
         }
 
         Login.service.login(credentials)
-            .then(({ token, user }) => {
+            .then(({ token, user, success, message, errors }) => {
+                if (!success) {
+                    return toast.error(errors[0])
+                }
+
                 window.localStorage.setItem('auth_token', token);
                 window.localStorage.setItem('username', user.username);
                 window.localStorage.setItem('roles', user.roles);
+                toast.success(message);
                 this.setState({
                     isLogged: true
                 });
-            }).catch((err) => console.error(err));
+            }).catch((err) => console.log(err)
+            );
     }
 
     render() {
@@ -68,7 +75,7 @@ class Login extends Component {
                             onChange={this.handleChange} />
                     </div>
                     <div className="float-right">
-                    <button type="submit" className="btn btn-primary top-buffer">Login</button>
+                        <button type="submit" className="btn btn-primary top-buffer">Login</button>
                     </div>
                 </form>
             </div>

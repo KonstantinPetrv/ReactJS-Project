@@ -38,6 +38,7 @@ class Checkout extends Component {
 
         Checkout.orderService.post(data)
             .then(() => {
+                this.removeProduct('all');
                 this.setState({
                     isOrdered: true
                 });
@@ -45,15 +46,15 @@ class Checkout extends Component {
     }
 
     componentWillMount() {
-
-        Checkout.productService.cart(this.state.ids)
-            .then(body => {
-                this.removeProduct('all');
-                this.setState({
-                    products: body
+        if (window.localStorage.getItem('cart')) {
+            Checkout.productService.cart(this.state.ids)
+                .then(body => {
+                    this.setState({
+                        products: body
+                    })
                 })
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
+        }
     }
 
     render() {
