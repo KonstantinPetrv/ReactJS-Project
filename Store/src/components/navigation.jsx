@@ -29,9 +29,9 @@ const Navigation = (props) => {
                             ? (
                                 <ul className="navbar-nav ml-auto">
                                     <li className="nav-item">
-                                        <NavLink to="/cart" className="navbar-brand">
+                                        <NavLink to="/orders/checkout" className="navbar-brand">
                                             Cart
-                                </NavLink>
+                                        </NavLink>
                                     </li>
                                     <li className="nav-item">
                                         <NavLink to="/" className="navbar-brand">
@@ -46,7 +46,11 @@ const Navigation = (props) => {
                             )
                             : (
                                 <ul className="navbar-nav ml-auto">
-
+                                    <li className="nav-item">
+                                        <NavLink to="/orders/checkout" className="navbar-brand">
+                                            Cart
+                                        </NavLink>
+                                    </li>
                                     <li className="nav-item active">
                                         <NavLink to="/login" className="navbar-brand">Login</NavLink>
                                     </li>

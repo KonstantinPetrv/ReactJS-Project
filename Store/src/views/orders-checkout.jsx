@@ -6,7 +6,7 @@ import OrderService from "../services/order-service";
 import ProductCartDisplay from "../components/prouct-order-display";
 
 
-class Cart extends Component {
+class Checkout extends Component {
     static orderService = new OrderService();
     static productService = new ProductService();
 
@@ -36,7 +36,7 @@ class Cart extends Component {
             products: this.state.ids
         }
 
-        Cart.orderService.post(data)
+        Checkout.orderService.post(data)
             .then(() => {
                 this.setState({
                     isOrdered: true
@@ -46,8 +46,9 @@ class Cart extends Component {
 
     componentWillMount() {
 
-        Cart.productService.cart(this.state.ids)
+        Checkout.productService.cart(this.state.ids)
             .then(body => {
+                this.removeProduct('all');
                 this.setState({
                     products: body
                 })
@@ -59,7 +60,7 @@ class Cart extends Component {
         return (
             <div>
                 {this.state.isOrdered
-                    ? <Redirect to="/" />
+                    ? < Redirect to="/" />
                     : null
                 }
                 <h2>Cart</h2>
@@ -74,13 +75,18 @@ class Cart extends Component {
                     <div className="btn-toolbar mr-2">
                         <button className="btn btn-primary" onClick={() => this.removeProduct('all')}>Empty Cart</button>
                     </div>
-                    <div className="btn-toolbar mr-2">
-                        <button className="btn btn-primary" onClick={() => this.postOrder()} >Checkout</button>
-                    </div>
+                    {window.localStorage.getItem('auth_token')
+                        ? <div className="btn-toolbar mr-2">
+                            <button className="btn btn-primary" onClick={() => this.postOrder()} >Order</button>
+                        </div>
+                        : <div className="btn-toolbar mr-2">
+                            <button className="btn btn-primary" disabled >Order</button>
+                        </div>
+                    }
                 </div>
             </div>
         )
     }
 }
 
-export default Cart;
+export default Checkout;

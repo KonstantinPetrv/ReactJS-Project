@@ -13,7 +13,8 @@ import ProductService from './services/product-service';
 import ProductDetails from './views/product-details';
 import ProductEdit from './views/product-edit';
 import ProductDelete from './views/product-delete';
-import Cart from './views/cart';
+import Checkout from './views/orders-checkout';
+import OrdersPending from './views/orders-pending';
 
 class App extends Component {
   static service = new ProductService();
@@ -40,7 +41,8 @@ class App extends Component {
                 <Route path="/product/details/:id" component={ProductDetails} />
                 <Route path="/product/edit/:id" component={ProductEdit} />
                 <Route path="/product/delete/:id" component={ProductDelete} />
-                <Route path="/cart" component={Cart} />
+                <Route path="/orders/pending" exact component={OrdersPending} />
+                <Route path="/orders/checkout" component={Checkout} />
                 <Route component={NotFound} />
               </Switch>
             </div>

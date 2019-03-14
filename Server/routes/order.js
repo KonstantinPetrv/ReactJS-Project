@@ -5,7 +5,7 @@ const Order = require('../models/Order')
 const router = new express.Router()
 
 router.post('/submit', authCheck, (req, res) => {
-  const {products} = req.body
+  const { products } = req.body
 
   let orderObj = {
     creator: req.user._id,
@@ -43,6 +43,8 @@ router.get('/pending', authCheck, (req, res) => {
   if (req.user.roles.indexOf('Admin') > -1) {
     Order
       .find({ status: 'Pending' })
+      .populate('creator','username')
+      .populate('products')
       .then(orders => {
         res.status(200).json(orders)
       })

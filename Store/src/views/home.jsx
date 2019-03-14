@@ -13,8 +13,6 @@ class Home extends Component {
         }
     }
 
-
-
     componentWillMount() {
         Home.service.all()
             .then(body => {

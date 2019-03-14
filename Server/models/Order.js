@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
 let orderSchema = mongoose.Schema({
-  creator: {type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE},
-  products: [],
-  date: {type: mongoose.Schema.Types.Date, required: REQUIRED_VALIDATION_MESSAGE, default: Date.now},
+  creator: { type: mongoose.Schema.Types.ObjectId, required: REQUIRED_VALIDATION_MESSAGE, ref: 'User' },
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+  date: { type: mongoose.Schema.Types.Date, required: REQUIRED_VALIDATION_MESSAGE, default: Date.now },
   status: {
     type: mongoose.Schema.Types.String,
     enum: {
