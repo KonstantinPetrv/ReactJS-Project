@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthenticationService from '../services/authentication-service';
+import UserForm from "../components/user-form";
 
 class Register extends Component {
     static service = new AuthenticationService();
@@ -41,7 +42,6 @@ class Register extends Component {
                 return Register.service.login(credentials)
             })
             .then(({ token, user, success, message }) => {
-                console.log(success);
                 if (!success) {
                     return;
                 }
@@ -49,7 +49,7 @@ class Register extends Component {
                 window.localStorage.setItem('username', user.username);
                 window.localStorage.setItem('roles', user.roles);
 
-                toast.message(message);
+                toast.success(message);
 
                 this.setState({
                     isLogged: true
@@ -58,40 +58,18 @@ class Register extends Component {
     }
 
     render() {
-        const { username, password } = this.state;
         return (
             <div className="col-md-6 container">
                 {this.state.isLogged
                     ? <Redirect to="/" />
                     : null
                 }
-                <form className="form-group" onSubmit={this.handleSubmit}>
-                    <div>
-                        <label htmlFor="username">Username: </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="username"
-                            id="username"
-                            placeholder="Username"
-                            value={username}
-                            onChange={this.handleChange} />
-                    </div>
-                    <div className="top-buffer">
-                        <label htmlFor="password">Password: </label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            name="password"
-                            id="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={this.handleChange} />
-                    </div>
-                    <div className="float-right">
-                        <button type="submit" className="btn btn-primary top-buffer">Register</button>
-                    </div>
-                </form>
+                <UserForm
+                    state={this.state}
+                    actionName='Register'
+                    handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
+                />
             </div>
         )
     }
