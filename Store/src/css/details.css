@@ -1,10 +1,10 @@
-
 body {
   font-family: 'open sans';
   overflow-x: hidden; }
 
 img {
-  max-width: 100%; }
+  max-width: 100%; 
+}
 
 .preview {
   display: -webkit-box;
@@ -44,7 +44,6 @@ img {
 .tab-content {
   overflow: hidden; }
   .tab-content img {
-    width: 100%;
     -webkit-animation-name: opacity;
             animation-name: opacity;
     -webkit-animation-duration: .3s;

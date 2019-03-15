@@ -17,7 +17,8 @@ class Checkout extends Component {
         this.state = {
             ids: [...window.localStorage.getItem('cart').trim().split(',')],
             products: [],
-            isOrdered: false
+            isOrdered: false,
+            totalPrice: 0
         }
     }
 
@@ -49,8 +50,15 @@ class Checkout extends Component {
         if (window.localStorage.getItem('cart')) {
             Checkout.productService.cart(this.state.ids)
                 .then(body => {
+                    let price = 0;
+                    if (body.length > 1) {
+                        price = body.reduce((prev, curr) => prev.price + curr.price);
+                    } else {
+                        price = body[0].price;
+                    }
                     this.setState({
-                        products: body
+                        products: body,
+                        totalPrice: price
                     })
                 })
                 .catch(err => console.log(err));
@@ -84,11 +92,30 @@ class Checkout extends Component {
                 }
                 <h2>Cart</h2>
                 <ul className="list-group">
-                    {this.state.products.map((product) => {
-                        return (<li key={product._id} className="list-group-item top-buffer left-buffer li-container">
-                            <ProductCartDisplay product={product} remove={this.removeProduct} />
-                        </li>)
-                    })}
+                    <table className="table table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col" className="text-left">Product</th>
+                                <th scope="col" className="text-right">Price</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.products.map((product) => {
+                                return (<ProductCartDisplay
+                                    product={product}
+                                    remove={this.removeProduct}
+                                    key={product._id}
+                                />)
+                            })}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td className="col-md-8 text-right"><span><h3><b>Total:</b></h3></span></td>
+                                <td className="text-center"><h3 className="price">{this.state.totalPrice}$</h3></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </ul>
                 <div className="btn-toolbar float-right top-buffer">
                     <div className="btn-toolbar mr-2">

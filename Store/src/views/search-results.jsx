@@ -17,7 +17,6 @@ class Home extends Component {
     componentWillMount() {
         Home.service.getSearch(this.props.location.search)
             .then(body => {
-                console.log(body);
                 this.setState({
                     products: body
                 })
@@ -27,15 +26,20 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <h2>Home Page</h2>
                 <Search />
-                <ul className="list-inline">
-                    {this.state.products.map((product) => {
-                        return (<li key={product._id} className="list-inline-item top-buffer left-buffer">
-                            <ProductDisplay product={product} />
-                        </li>)
-                    })}
-                </ul>
+                {
+                    this.state.products.length > 0
+                        ? (
+                            <ul className="list-inline">
+                                {this.state.products.map((product) => {
+                                    return (<li key={product._id} className="list-inline-item top-buffer left-buffer">
+                                        <ProductDisplay product={product} />
+                                    </li>)
+                                })}
+                            </ul>
+                        )
+                        : <h2 className="text-muted text-center">No products matching your search parameters were found</h2>
+                }
             </div>
         )
     }

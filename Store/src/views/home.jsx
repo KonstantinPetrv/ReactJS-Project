@@ -26,7 +26,6 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <h2>Home Page</h2>
                 <Search />
                 <ul className="list-inline">
                     {this.state.products.map((product) => {

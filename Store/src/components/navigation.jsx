@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import AdminNav from './admin-nav';
+import UserNav from './user-nav';
 
 const Navigation = (props) => {
     return (
@@ -12,11 +14,7 @@ const Navigation = (props) => {
                         </li>
                         {window.localStorage.getItem('roles')
                             ? window.localStorage.getItem('roles').indexOf('Admin') + 1
-                                ? (<li className="nav-item active" >
-                                    <NavLink to="/product/create" className="navbar-brand">Add Product</NavLink>
-                                    <NavLink to="/orders/pending" className="navbar-brand">Pending Orders</NavLink>
-                                </li>
-                                )
+                                ? <AdminNav />
                                 : null
                             : null
                         }
@@ -24,42 +22,7 @@ const Navigation = (props) => {
                     </ul>
                 </div>
                 <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    {
-                        window.localStorage.getItem('username')
-                            ? (
-                                <ul className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <NavLink to="/orders/checkout" className="navbar-brand">
-                                            Cart
-                                        </NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to="/user/info" className="navbar-brand">
-                                            {window.localStorage.getItem('username')}
-                                        </NavLink>
-                                    </li>
-                                    <li><NavLink to="/logout" className="navbar-brand">
-                                        Logout
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            )
-                            : (
-                                <ul className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <NavLink to="/orders/checkout" className="navbar-brand">
-                                            Cart
-                                        </NavLink>
-                                    </li>
-                                    <li className="nav-item active">
-                                        <NavLink to="/login" className="navbar-brand">Login</NavLink>
-                                    </li>
-                                    <li className="nav-item active">
-                                        <NavLink to="/register" className="navbar-brand">Register</NavLink>
-                                    </li>
-                                </ul>
-                            )
-                    }
+                    <UserNav />
                 </div>
             </nav>
         </header>
