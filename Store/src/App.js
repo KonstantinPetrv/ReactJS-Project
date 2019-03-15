@@ -54,23 +54,19 @@ class App extends Component {
                 <Route path="/logout" exact component={Logout} />
                 <AuthRoute path="/product/create" exact
                   component={ProductCreate}
-                  roles={window.localStorage.getItem('roles')}
                   allowedRoles={['Admin']}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <AuthRoute path="/product/edit/:id"
                   component={ProductEdit}
-                  roles={window.localStorage.getItem('roles')}
                   allowedRoles={['Admin']}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route path="/product/details/:id" component={ProductDetails} />
                 <AuthRoute path="/product/delete/:id"
                   component={ProductDelete}
-                  roles={window.localStorage.getItem('roles')}
                   allowedRoles={['Admin']}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <AuthRoute path="/orders/pending" exact
                   component={OrdersPending}
-                  roles={window.localStorage.getItem('roles')}
                   allowedRoles={['Admin']}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route path="/orders/checkout" component={Checkout} />

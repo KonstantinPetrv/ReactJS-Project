@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const AuthRoute = ({ isLoggedIn, allowedRoles = [], roles, ...otherProps }) => {
+const AuthRoute = ({ isLoggedIn, allowedRoles = [], ...otherProps }) => {
+    const roles = window.localStorage.getItem('roles');
     const roleIsAllowed = (!allowedRoles.length) || (typeof (roles) !== 'string' ? (
         roles
             .split(',')
