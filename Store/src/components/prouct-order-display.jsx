@@ -8,7 +8,7 @@ const ProductCartDisplay = (props) => {
         <tr>
             <td>
                 <div className="col-xs-12 image-container float-left">
-                    <NavLink to={`product/details/${_id}`}>
+                    <NavLink to={`/product/details/${_id}`}>
                         <img className="cart-thumbnails" src={image} alt="missing" />
                     </NavLink>
                 </div>

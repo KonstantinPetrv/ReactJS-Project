@@ -112,7 +112,7 @@ class Checkout extends Component {
                         <tfoot>
                             <tr>
                                 <td className="col-md-8 text-right"><span><h3><b>Total:</b></h3></span></td>
-                                <td className="text-center"><h3 className="price">{this.state.totalPrice}$</h3></td>
+                                <td className="text-center"><h3 className="price">{this.state.totalPrice.toFixed(2)}$</h3></td>
                             </tr>
                         </tfoot>
                     </table>
