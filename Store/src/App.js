@@ -18,8 +18,9 @@ import ProductDelete from './views/product-delete';
 import Checkout from './views/orders-checkout';
 import OrdersPending from './views/orders-pending';
 import AuthRoute from './components/auth-route';
-import UserInfo from './views/user-info';
+import UserOrders from './views/user-orders';
 import SearchResults from './views/search-results';
+import UserReviews from './views/user-reviews';
 
 class App extends Component {
   static service = new ProductService();
@@ -37,7 +38,7 @@ class App extends Component {
           <Fragment>
             <Navigation />
             <ToastContainer autoClose={1500} />
-            <div className="container">
+            <div className="pt-4 container bs-test container-fluid main-container">
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/product/search" component={SearchResults} />
@@ -70,8 +71,11 @@ class App extends Component {
                   allowedRoles={['Admin']}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route path="/orders/checkout" component={Checkout} />
-                <AuthRoute path="/user/info"
-                  component={UserInfo}
+                <AuthRoute path="/user/orders"
+                  component={UserOrders}
+                  isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+                <AuthRoute path="/user/reviews"
+                  component={UserReviews}
                   isLoggedIn={!!window.localStorage.getItem('auth_token')} />
                 <Route component={NotFound} />
               </Switch>

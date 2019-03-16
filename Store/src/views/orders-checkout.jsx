@@ -52,7 +52,9 @@ class Checkout extends Component {
                 .then(body => {
                     let price = 0;
                     if (body.length > 1) {
-                        price = body.reduce((prev, curr) => prev.price + curr.price);
+                        price = body.reduce(function (acc, curr) {
+                            return acc + curr.price;
+                        }, 0);
                     } else {
                         price = body[0].price;
                     }

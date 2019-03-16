@@ -7,8 +7,8 @@ const AdminNav = (props) => {
             <div className="dropdown">
                 <button className="dropbtn"><span>Admin Controls</span></button>
                 <div className="dropdown-content">
-                    <NavLink to="/product/create">Add Product</NavLink>
-                    <NavLink to="/orders/pending">Pending Orders</NavLink>
+                    <NavLink to="/product/create" className="text-center">Add Product</NavLink>
+                    <NavLink to="/orders/pending" className="text-center">Pending Orders</NavLink>
                 </div>
             </div>
         </li>

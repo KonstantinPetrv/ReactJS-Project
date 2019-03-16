@@ -1,6 +1,8 @@
 const express = require('express')
 const authCheck = require('../config/auth-check')
 const Product = require('../models/Product')
+const Review = require('../models/Review')
+const User = require('../models/User')
 const mongoose = require('mongoose')
 
 
@@ -171,67 +173,16 @@ router.get('/details/:id', (req, res) => {
     Product
         .findById(id)
         .then(product => {
-            res.status(200).json(product)
+            Review
+                .find({ product: id })
+                .populate('creator','username')
+                .then(reviews => {
+                    res.status(200).json({
+                        product,
+                        reviews
+                    })
+                })
         })
-})
-
-router.post('/review/:id', authCheck, (req, res) => {
-    // const id = req.params.id
-    // const review = req.body.review
-    // const username = req.user.username
-
-    // if (review.length < 4) {
-    //     const message = 'Review must be at least 4 characters long.'
-    //     return res.status(200).json({
-    //         success: false,
-    //         message: message
-    //     })
-    // }
-
-    // Product
-    //     .findById(id)
-    //     .then(product => {
-    //         if (!product) {
-    //             return res.status(200).json({
-    //                 success: false,
-    //                 message: 'Product not found.'
-    //             })
-    //         }
-
-    //         let reviewObj = {
-    //             review,
-    //             createdBy: username
-    //         }
-
-    //         let reviews = product.reviews
-    //         reviews.push(reviewObj)
-    //         product.reviews = reviews
-    //         product
-    //             .save()
-    //             .then((product) => {
-    //                 res.status(200).json({
-    //                     success: true,
-    //                     message: 'Review added successfully.',
-    //                     data: product
-    //                 })
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err)
-    //                 const message = 'Something went wrong :( Check the form for errors.'
-    //                 return res.status(200).json({
-    //                     success: false,
-    //                     message: message
-    //                 })
-    //             })
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //         const message = 'Something went wrong :( Check the form for errors.'
-    //         return res.status(200).json({
-    //             success: false,
-    //             message: message
-    //         })
-    //     })
 })
 
 router.delete('/delete/:id', authCheck, (req, res) => {

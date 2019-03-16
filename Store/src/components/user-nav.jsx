@@ -11,10 +11,14 @@ const UserNav = (props) => {
             </li>
             {
                 !!window.localStorage.getItem('auth_token')
-                    ? <li className="nav-item">
-                        <NavLink to="/user/info" className="navbar-brand">
-                            {window.localStorage.getItem('username')}
-                        </NavLink>
+                    ? <li className="nav-item active mr-3" >
+                        <div className="dropdown">
+                            <button className="dropbtn"><span>{window.localStorage.getItem('username')}</span></button>
+                            <div className="dropdown-content">
+                                <NavLink to="/user/orders" className="text-center">Orders</NavLink>
+                                <NavLink to="/user/reviews" className="text-center">Reviews</NavLink>
+                            </div>
+                        </div>
                     </li>
                     : <li className="nav-item active">
                         <NavLink to="/login" className="navbar-brand">Login</NavLink>
@@ -28,7 +32,9 @@ const UserNav = (props) => {
                         </NavLink>
                     </li>
                     : <li className="nav-item active">
-                        <NavLink to="/register" className="navbar-brand">Register</NavLink>
+                        <NavLink to="/register" className="navbar-brand">
+                            Register
+                        </NavLink>
                     </li>
             }
         </ul>

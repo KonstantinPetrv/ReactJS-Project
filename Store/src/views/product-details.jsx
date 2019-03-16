@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ProductService from '../services/product-service';
 import '../css/details.css'
+import ReviewForm from "../components/review-form";
+import ReviewDisplay from "../components/review-display";
 
 class ProductDetails extends Component {
     static service = new ProductService();
@@ -44,17 +46,16 @@ class ProductDetails extends Component {
 
     componentWillMount() {
         ProductDetails.service.details(this.props.match.params.id)
-            .then(body => {
+            .then(({ product, reviews }) => {
                 let isInCart = false;
                 [...window.localStorage.getItem('cart').trim().split(',')]
-                    .indexOf(body._id) > -1 ? isInCart = true : isInCart = false
-
+                    .indexOf(product._id) > -1 ? isInCart = true : isInCart = false
                 this.setState({
-                    title: body.title,
-                    description: body.description,
-                    price: body.price,
-                    image: body.image,
-                    reviws: body.reviws,
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    image: product.image,
+                    reviews: reviews,
                     inCart: isInCart
                 })
             })
@@ -68,7 +69,6 @@ class ProductDetails extends Component {
                     <div className="container-fliud">
                         <div className="wrapper row">
                             <div className="preview col-md-6">
-
                                 <div className="preview-pic tab-content">
                                     <div className="tab-pane active" id="pic-1"><img src={image} alt="missing" /></div>
                                 </div>
@@ -77,7 +77,7 @@ class ProductDetails extends Component {
                                 <h3 className="product-title text-center">{title}</h3>
                                 <p className="product-description">{description}</p>
                                 <div className="rating top-buffer">
-                                    <span className="review-no">{reviews.length} reviews</span>
+                                    <span className="review-no">reviews: {reviews.length}</span>
                                 </div>
                                 <h4 className="price">current price: <span>{typeof (price) === 'number' ? price.toFixed(2) : null}$</span></h4>
                                 <div className="action">
@@ -104,6 +104,40 @@ class ProductDetails extends Component {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div name="review-form">
+                    <h4 className="mt-2">Write a review:</h4>
+                    <ReviewForm
+                        productId={this.props.match.params.id}
+                        reviews={this.state.reviews} />
+                </div>
+                <div name="reviews">
+                    {
+                        this.state.reviews.length > 0
+                            ? (
+                                <table className="table table-striped table-hover mb-4">
+                                    <thead className="thead-dark">
+                                        <tr>
+                                            <th scope="col" className="text-left">Reviews:</th>
+                                            <th scope="col" className="text-center col-md-2"></th>
+                                            <th scope="col" className="text-center col-md-2"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            this.state.reviews.map(review => {
+                                                return <ReviewDisplay
+                                                    key={review._id}
+                                                    content={review.content}
+                                                    opinion={review.opinion}
+                                                    anchor={review.creator.username} />
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            )
+                            : null
+                    }
                 </div>
             </div>
         )

@@ -7,7 +7,7 @@ let productSchema = new mongoose.Schema({
     description: { type: mongoose.Schema.Types.String },
     price: { type: mongoose.Schema.Types.Number, required: REQUIRED_VALIDATION_MESSAGE },
     image: { type: mongoose.Schema.Types.String, required: REQUIRED_VALIDATION_MESSAGE },
-    reviews: []
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
 })
 
 let Product = mongoose.model('Product', productSchema)

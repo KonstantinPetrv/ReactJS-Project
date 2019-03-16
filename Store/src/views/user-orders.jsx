@@ -38,7 +38,6 @@ class UserInfo extends Component {
     render() {
         return (
             <div>
-                <h2>{window.localStorage.getItem('username')}</h2>
                 <h3 className="top-buffer">Order History:</h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
