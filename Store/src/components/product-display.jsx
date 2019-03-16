@@ -11,7 +11,7 @@ const ProductDisplay = (props) => {
                 </div>
             </NavLink>
             <div className="col-xs-12">
-                <h3 className="text-center">{title}</h3>
+                <h5 className="text-center">{title}</h5>
             </div>
             <h4 className="text-md-left home-case price">
                 {price.toFixed(2)}$

@@ -34,8 +34,8 @@ const ProductForm = (props) => {
                 <label className="label label-default col-2" htmlFor="price">Price: </label>
                 <input
                     type="number"
-                    min="1"
-                    step="any"
+                    min="0"
+                    step="0.01"
                     className="form-control col-8"
                     name="price"
                     id="price"

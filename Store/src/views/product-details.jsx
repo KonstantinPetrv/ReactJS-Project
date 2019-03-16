@@ -74,18 +74,11 @@ class ProductDetails extends Component {
                                 </div>
                             </div>
                             <div className="details col-md-6">
-                                <h3 className="product-title">{title}</h3>
-                                <div className="rating">
-                                    <div className="stars">
-                                        <span className="fa fa-star checked"></span>
-                                        <span className="fa fa-star checked"></span>
-                                        <span className="fa fa-star checked"></span>
-                                        <span className="fa fa-star"></span>
-                                        <span className="fa fa-star"></span>
-                                    </div>
+                                <h3 className="product-title text-center">{title}</h3>
+                                <p className="product-description">{description}</p>
+                                <div className="rating top-buffer">
                                     <span className="review-no">{reviews.length} reviews</span>
                                 </div>
-                                <p className="product-description">{description}</p>
                                 <h4 className="price">current price: <span>{typeof (price) === 'number' ? price.toFixed(2) : null}$</span></h4>
                                 <div className="action">
                                     {

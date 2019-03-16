@@ -34,7 +34,7 @@ class ProductEdit extends Component {
 
         ProductEdit.service.edit(this.props.match.params.id, credentials)
             .then((data) => {
-                toast.success('Product edited.');
+                toast.success('Product updated.');
                 this.setState({
                     success: true
                 });
