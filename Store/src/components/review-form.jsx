@@ -26,10 +26,12 @@ class ReviewForm extends Component {
 
 
         ReviewForm.service.post(data)
-            .then(({ success, message }) => {
+            .then(({ success, message, data }) => {
                 success
                     ? toast.success(message)
                     : toast.error('Something went wrong.');
+                this.props.update(data);
+                console.log(data);
             }).catch((err) => console.log(err));
     }
 

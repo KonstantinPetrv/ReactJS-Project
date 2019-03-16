@@ -9,13 +9,19 @@ import ReviewDisplay from "../components/review-display";
 class ProductDetails extends Component {
     static service = new ProductService();
 
-    state = {
-        title: '',
-        description: '',
-        price: '',
-        image: '',
-        reviews: [],
-        inCart: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            title: '',
+            description: '',
+            price: '',
+            image: '',
+            reviews: [],
+            inCart: false
+        }
+
+        this.updateReviews = this.updateReviews.bind(this);
     }
 
     addProduct = () => {
@@ -32,6 +38,12 @@ class ProductDetails extends Component {
         this.setState({
             inCart: true
         })
+    }
+
+    updateReviews(d) {
+        this.setState({
+            reviews: [...this.state.reviews, d]
+        });
     }
 
     removeProduct = (id = this.props.match.params.id) => {
@@ -109,7 +121,8 @@ class ProductDetails extends Component {
                     <h4 className="mt-2">Write a review:</h4>
                     <ReviewForm
                         productId={this.props.match.params.id}
-                        reviews={this.state.reviews} />
+                        update={this.updateReviews}
+                    />
                 </div>
                 <div name="reviews">
                     {

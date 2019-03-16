@@ -23,11 +23,15 @@ router.post('/submit', authCheck, (req, res) => {
                     product.reviews = [...product.reviews, createdReview._id];
                     product.save();
                 })
-            res.status(200).json({
-                success: true,
-                message: 'Review created successfully.',
-                data: createdReview
-            })
+            Review.findById(createdReview._id)
+                .populate('creator')
+                .then(review => {
+                    res.status(200).json({
+                        success: true,
+                        message: 'Review created successfully.',
+                        data: review
+                    })
+                })
         })
         .catch((err) => {
             console.log(err)
@@ -74,13 +78,19 @@ router.delete('/delete/:id', authCheck, (req, res) => {
     Review
         .findById(id)
         .then((review) => {
-            review
-                .remove()
-                .then(() => {
-                    return res.status(200).json({
-                        success: true,
-                        message: 'Review Deleted'
-                    })
+            Product.findById(review.product)
+                .then(product => {
+                    product.reviews.splice(product.reviews.indexOf(id), 1);
+                    return product.save()
+                }).then(() => {
+                    review
+                        .remove()
+                        .then(() => {
+                            return res.status(200).json({
+                                success: true,
+                                message: 'Review Deleted'
+                            })
+                        })
                 })
         })
         .catch(() => {
