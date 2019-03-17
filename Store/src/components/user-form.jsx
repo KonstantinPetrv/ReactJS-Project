@@ -6,7 +6,7 @@ const UserForm = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="username">Username: </label>
+                <label className="label label-default col-2" htmlFor="username">Username&#58; </label>
                 <input
                     type="text"
                     className="form-control col-8"
@@ -17,7 +17,7 @@ const UserForm = (props) => {
                     onChange={handleChange} />
             </div>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="password">Password: </label>
+                <label className="label label-default col-2" htmlFor="password">Password&#58; </label>
                 <input
                     type="password"
                     className="form-control col-8"

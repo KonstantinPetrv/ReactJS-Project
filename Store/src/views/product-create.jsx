@@ -35,7 +35,8 @@ class ProductCreate extends Component {
         ProductCreate.service.create(credentials)
             .then((data, err) => {
                 if (!data.success) {
-                    toast.error(data.message);
+                    console.log(data)
+                    toast.error(data.errors[0]);
                     return;
                 }
                 toast.success(credentials.title + ' created.')

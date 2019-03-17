@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 const router = new express.Router()
 
 function validateProductForm(payload) {
-    const errors = {}
+    const errors = []
     let isFormValid = true
     let message = ''
 
@@ -20,19 +20,19 @@ function validateProductForm(payload) {
         errors.name = 'Title required.'
     }
 
-    if (!payload || typeof payload.description !== 'string' || payload.description.length < 10 || payload.description.length > 200) {
+    if (!payload || typeof payload.description !== 'string' || payload.description.length < 10 || payload.description.length > 400) {
         isFormValid = false
-        errors.description = 'Description must be at least 10 symbols and less than 120 symbols.'
+        errors.push('Description must be at least 10 symbols and less than 400 symbols.')
     }
 
     if (!payload || !payload.price || payload.price < 0) {
         isFormValid = false
-        errors.price = 'Price must be a positive number.'
+        errors.push('Price must be a positive number.')
     }
 
     if (!payload || typeof payload.image !== 'string' || !(payload.image.startsWith('https://') || payload.image.startsWith('http://')) || payload.image.length < 14) {
         isFormValid = false
-        errors.image = 'Please enter valid Image URL. Image URL must be at least 14 symbols.'
+        errors.push('Please enter valid Image URL. Image URL must be at least 14 symbols.')
     }
 
     if (!isFormValid) {
@@ -175,7 +175,7 @@ router.get('/details/:id', (req, res) => {
         .then(product => {
             Review
                 .find({ product: id })
-                .populate('creator','username')
+                .populate('creator', 'username')
                 .then(reviews => {
                     res.status(200).json({
                         product,
@@ -191,14 +191,20 @@ router.delete('/delete/:id', authCheck, (req, res) => {
         Product
             .findById(id)
             .then((product) => {
-                product
-                    .remove()
+                Review.find({ '_id': { $in: product.reviews } })
+
+                Review.deleteMany({ 'product': id })
                     .then(() => {
-                        return res.status(200).json({
-                            success: true,
-                            message: 'Product deleted successfully!'
-                        })
+                        product
+                            .remove()
+                            .then(() => {
+                                return res.status(200).json({
+                                    success: true,
+                                    message: 'Product deleted successfully!'
+                                })
+                            })
                     })
+
             })
             .catch(() => {
                 return res.status(200).json({

@@ -89,9 +89,9 @@ class ProductDetails extends Component {
                                 <h3 className="product-title text-center">{title}</h3>
                                 <p className="product-description">{description}</p>
                                 <div className="rating top-buffer">
-                                    <span className="review-no">reviews: {reviews.length}</span>
+                                    <span className="review-no">reviews&#58; {reviews.length}</span>
                                 </div>
-                                <h4 className="price">current price: <span>{typeof (price) === 'number' ? price.toFixed(2) : null}$</span></h4>
+                                <h4 className="price">current price&#58; <span>{typeof (price) === 'number' ? price.toFixed(2) : null}&#36;</span></h4>
                                 <div className="action">
                                     {
                                         this.state.inCart
@@ -115,42 +115,44 @@ class ProductDetails extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div name="reviw-content-container" className="mt-4 mb-2">
+                            <div name="review-form" className="">
+                                <h4 className="mt-2">Review Product&#58;</h4>
+                                <ReviewForm
+                                    productId={this.props.match.params.id}
+                                    update={this.updateReviews}
+                                />
+                            </div>
+                            <div name="reviews">
+                                {
+                                    this.state.reviews.length > 0
+                                        ? (
+                                            <table className="table table-striped table-hover">
+                                                <thead className="thead-dark">
+                                                    <tr>
+                                                        <th scope="col" className="text-left">Reviews&#58;</th>
+                                                        <th scope="col" className="text-center col-md-2"></th>
+                                                        <th scope="col" className="text-center col-md-2"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        this.state.reviews.map(review => {
+                                                            return <ReviewDisplay
+                                                                key={review._id}
+                                                                content={review.content}
+                                                                opinion={review.opinion}
+                                                                anchor={review.creator.username} />
+                                                        })
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        )
+                                        : <h3 className="text-muted">Currently there aren&#39;t any reviews for this product&#46;</h3>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div name="review-form">
-                    <h4 className="mt-2">Write a review:</h4>
-                    <ReviewForm
-                        productId={this.props.match.params.id}
-                        update={this.updateReviews}
-                    />
-                </div>
-                <div name="reviews">
-                    {
-                        this.state.reviews.length > 0
-                            ? (
-                                <table className="table table-striped table-hover mb-4">
-                                    <thead className="thead-dark">
-                                        <tr>
-                                            <th scope="col" className="text-left">Reviews:</th>
-                                            <th scope="col" className="text-center col-md-2"></th>
-                                            <th scope="col" className="text-center col-md-2"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            this.state.reviews.map(review => {
-                                                return <ReviewDisplay
-                                                    key={review._id}
-                                                    content={review.content}
-                                                    opinion={review.opinion}
-                                                    anchor={review.creator.username} />
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
-                            )
-                            : null
-                    }
                 </div>
             </div>
         )

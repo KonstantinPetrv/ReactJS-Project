@@ -65,7 +65,7 @@ class OrdersPending extends Component {
                                     orders={orders}
                                     price={price}
                                     products={productNames.join(', ')}
-                                    action={productNames.join(', ')}
+                                    action={this.approveOrder}
                                     approve={this.approveOrder}
                                     isAdmin={true}
                                 />

@@ -8,7 +8,7 @@ const ProductForm = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="title">Title: </label>
+                <label className="label label-default col-2" htmlFor="title">Title&#58; </label>
                 <input
                     type="text"
                     className="form-control col-8"
@@ -19,7 +19,7 @@ const ProductForm = (props) => {
                     onChange={handleChange} />
             </div>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="description">Description: </label>
+                <label className="label label-default col-2" htmlFor="description">Description&#58; </label>
                 <textarea
                     type="description"
                     className="form-control col-8"
@@ -31,7 +31,7 @@ const ProductForm = (props) => {
                     onChange={handleChange} />
             </div>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="price">Price: </label>
+                <label className="label label-default col-2" htmlFor="price">Price&#58; </label>
                 <input
                     type="number"
                     min="0"
@@ -44,13 +44,13 @@ const ProductForm = (props) => {
                     onChange={handleChange} />
             </div>
             <div className="form-group form-inline top-buffer">
-                <label className="label label-default col-2" htmlFor="image">Image: </label>
+                <label className="label label-default col-2" htmlFor="image">Image&#58; </label>
                 <input
                     type="text"
                     className="form-control col-8"
                     name="image"
                     id="title"
-                    placeholder="Image Url:"
+                    placeholder="Image Url"
                     value={image}
                     onChange={handleChange} />
             </div>

@@ -38,7 +38,7 @@ class UserInfo extends Component {
     render() {
         return (
             <div>
-                <h3 className="top-buffer">Order History:</h3>
+                <h3 className="top-buffer">Order History&#58;</h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
                         <tr>

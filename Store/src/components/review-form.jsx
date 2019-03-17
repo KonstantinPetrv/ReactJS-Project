@@ -31,7 +31,9 @@ class ReviewForm extends Component {
                     ? toast.success(message)
                     : toast.error('Something went wrong.');
                 this.props.update(data);
-                console.log(data);
+                this.setState({
+                    content: ''
+                })
             }).catch((err) => console.log(err));
     }
 
@@ -39,14 +41,14 @@ class ReviewForm extends Component {
         return (
             <form onSubmit={this.handleSubmit} className="top-buffer border-bottom mb-4">
                 <div className="form-group row">
-                    <div className="col-md-8">
+                    <div className="col-xl-12">
                         <textarea
                             type="description"
                             className="form-control"
-                            rows="3"
+                            rows="5"
                             name="content"
                             id="content"
-                            placeholder="Review Product:"
+                            placeholder="Write a review&#58;"
                             value={this.state.content}
                             onChange={this.handleChange}
                         />
@@ -79,7 +81,7 @@ class ReviewForm extends Component {
                         htmlFor="negative">
                         : Negative
                         </label>
-                    <span className="col-md-9">
+                    <span className="col-md-3">
                         <button type="submit" className="btn btn-primary float-right mb-2">Submit</button>
                     </span>
                 </span>

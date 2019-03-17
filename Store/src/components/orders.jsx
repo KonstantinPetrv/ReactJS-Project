@@ -1,5 +1,4 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 
 const Orders = (props) => {
     const { _id, creator, status } = props.orders;
@@ -18,7 +17,7 @@ const Orders = (props) => {
                 : null
             }
             <td className="">{products}</td>
-            <td className="price text-center">{price.toFixed(2)}$</td>
+            <td className="price text-center">{price.toFixed(2)}&#36;</td>
             <td className="text-center">
                 {isAdmin
                     ? <button className="btn btn-primary" onClick={() => props.action(_id)}>Approve</button>

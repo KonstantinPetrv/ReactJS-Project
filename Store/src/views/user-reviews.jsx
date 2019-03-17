@@ -38,12 +38,12 @@ class UserReviews extends Component {
     render() {
         return (
             <div>
-                <h3 className="top-buffer">Reviews:</h3>
+                <h3 className="top-buffer">Reviews&#58;</h3>
                 <table className="table table-striped table-hover">
                     <thead className="thead-dark">
                         <tr>
-                            <th scope="col" className="text-center">Products</th>
-                            <th scope="col" className="text-center">review</th>
+                            <th scope="col" className="text-center">Product</th>
+                            <th scope="col" className="text-center">Review</th>
                             <th scope="col" className="text-center">Opinion</th>
                             <th scope="col" className="text-center">Action</th>
                         </tr>
