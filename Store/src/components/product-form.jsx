@@ -3,6 +3,7 @@ import React from 'react';
 const ProductForm = (props) => {
     const { title, description, image, price } = props.state;
     const { handleChange, handleSubmit, actionName } = props;
+    console.log(props)
     let btnStyle = 'btn-primary';
     if (actionName === 'Edit') btnStyle = 'btn-warning';
     return (

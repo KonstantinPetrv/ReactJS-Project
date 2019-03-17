@@ -30,7 +30,11 @@ class Login extends Component {
         Login.service.login(credentials)
             .then(({ token, user, success, message, errors }) => {
                 if (!success) {
-                    return toast.error(errors[0])
+                    if (!!errors) {
+                        return toast.error(errors[0])
+                    } else {
+                        return toast.error(message);
+                    }
                 }
 
                 window.localStorage.setItem('auth_token', token);

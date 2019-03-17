@@ -20,7 +20,7 @@ class ProductEdit extends Component {
         this.setState({
             [target.name]: target.value
         })
-    }   
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -45,10 +45,10 @@ class ProductEdit extends Component {
         ProductEdit.service.details(this.props.match.params.id)
             .then(body => {
                 this.setState({
-                    title: body.title,
-                    description: body.description,
-                    price: body.price,
-                    image: body.image,
+                    title: body.product.title,
+                    description: body.product.description,
+                    price: body.product.price,
+                    image: body.product.image,
                 })
             })
     }
