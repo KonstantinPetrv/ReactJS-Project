@@ -47,16 +47,16 @@ The app split in 3 parts
         isLoggedIn={!!window.localStorage.getItem('auth_token')} />
 	
 	<AuthRoute path="/product/edit/:id"
-	component={ProductEdit}
-			allowedRoles={['Admin']}
-			isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+		component={ProductEdit}
+		allowedRoles={['Admin']}
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
     
 	<Route path="/product/details/:id" component={ProductDetails} />
     
 	<AuthRoute path="/product/delete/:id"
 		component={ProductDelete}
-			allowedRoles={['Admin']}
-			isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+		allowedRoles={['Admin']}
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
     
 	<AuthRoute path="/orders/pending" exact
 		component={OrdersPending}
