@@ -7,7 +7,8 @@ class ReviewForm extends Component {
 
     state = {
         content: '',
-        opinion: 'Positive'
+        opinion: 'Positive',
+        isLogged: !!window.localStorage.getItem('auth_token')
     }
 
     handleChange = ({ target }) => {
@@ -36,8 +37,9 @@ class ReviewForm extends Component {
                 })
             }).catch((err) => console.log(err));
     }
-
+    // {this.state.isLogged ? () : null}
     render() {
+        const { isLogged } = this.state;
         return (
             <form onSubmit={this.handleSubmit} className="top-buffer border-bottom mb-4">
                 <div className="form-group row">
@@ -61,7 +63,7 @@ class ReviewForm extends Component {
                         name="opinion"
                         value="Positive"
                         className="custom-control-input"
-                        onChange={this.handleChange} />
+                        onChange={isLogged ? this.handleChange : null} />
                     <label
                         className="custom-control-label"
                         htmlFor="positive">
@@ -75,14 +77,18 @@ class ReviewForm extends Component {
                         name="opinion"
                         className="custom-control-input"
                         value="Negative"
-                        onChange={this.handleChange} />
+                        onChange={isLogged ? this.handleChange : null} />
                     <label
                         className="custom-control-label"
                         htmlFor="negative">
                         : Negative
                         </label>
                     <span className="col-md-3">
-                        <button type="submit" className="btn btn-primary float-right mb-2">Submit</button>
+                        {
+                            isLogged
+                                ? <button type="submit" className="btn btn-primary float-right mb-2">Submit</button>
+                                : <button disabled className="btn btn-primary float-right mb-2">Submit</button>
+                        }
                     </span>
                 </span>
             </form >
