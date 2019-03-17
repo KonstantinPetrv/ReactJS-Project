@@ -43,8 +43,8 @@ The app split in 3 parts
     
 	<AuthRoute path="/product/create" exact
 		component={ProductCreate}
-        allowedRoles={['Admin']}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+		allowedRoles={['Admin']}
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
 	
 	<AuthRoute path="/product/edit/:id"
 		component={ProductEdit}
