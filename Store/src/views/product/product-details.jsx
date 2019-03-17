@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ProductService from '../services/product-service';
-import '../css/details.css'
-import ReviewForm from "../components/review-form";
-import ReviewDisplay from "../components/review-display";
+import ProductService from '../../services/product-service';
+import '../../css/details.css'
+import ReviewForm from "../../components/forms/review-form";
+import ReviewDisplay from "../../components/displays/review-display";
 
 class ProductDetails extends Component {
     static service = new ProductService();

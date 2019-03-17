@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { toast } from 'react-toastify';
-import OrderService from '../services/order-service';
-import Orders from "../components/orders";
+import OrderService from '../../services/order-service';
+import Orders from "../../components/displays/orders";
 
 class OrdersPending extends Component {
     static service = new OrderService();

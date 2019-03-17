@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { toast } from 'react-toastify';
-import ReviewService from '../services/review-service';
-import ReviewDisplay from "../components/review-display";
+import ReviewService from '../../services/review-service';
+import ReviewDisplay from "../../components/displays/review-display";
 
 class UserReviews extends Component {
     static service = new ReviewService();

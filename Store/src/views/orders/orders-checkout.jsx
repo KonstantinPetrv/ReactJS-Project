@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import ProductService from "../services/product-service";
-import OrderService from "../services/order-service";
-import ProductCartDisplay from "../components/prouct-order-display";
+import ProductService from "../../services/product-service";
+import OrderService from "../../services/order-service";
+import ProductCartDisplay from "../../components/displays/prouct-order-display";
 
 
 class Checkout extends Component {

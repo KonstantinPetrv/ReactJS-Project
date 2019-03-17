@@ -5,8 +5,6 @@ class OrderService {
         this.baseUrl = "http://localhost:9999/review";
         this.submitUrl = this.baseUrl + '/submit';
         this.detailsUrl = this.baseUrl + '/details/'
-        // this.pendingUrl = this.baseUrl + '/pending';
-        // this.approveUrl = this.baseUrl + '/approve/';
         this.userReviewssUrl = this.baseUrl + '/user';
         this.removeUrl = this.baseUrl + '/delete/';
     }

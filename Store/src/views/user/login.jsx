@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import AuthenticationService from '../services/authentication-service';
-import UserForm from "../components/user-form";
+import AuthenticationService from '../../services/authentication-service';
+import UserForm from "../../components/forms/user-form";
 
 class Login extends Component {
     static service = new AuthenticationService();

@@ -18,7 +18,6 @@ const Navigation = (props) => {
                                 : null
                             : null
                         }
-
                     </ul>
                 </div>
                 <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ProductService from '../services/product-service';
+import ProductService from '../../services/product-service';
 
 class ProductDelete extends React.Component {
     static service = new ProductService();

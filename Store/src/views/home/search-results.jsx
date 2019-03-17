@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ProductDisplay from "../components/product-display";
-import ProductService from '../services/product-service';
-import Search from "../components/search";
+import ProductDisplay from "../../components/displays/product-display";
+import ProductService from '../../services/product-service';
+import Search from "../../components/forms/search";
 
 class Home extends Component {
     static service = new ProductService();

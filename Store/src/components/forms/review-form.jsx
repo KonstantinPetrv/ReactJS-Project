@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import ReviewService from '../services/review-service';
+import ReviewService from '../../services/review-service';
 
 class ReviewForm extends Component {
     static service = new ReviewService();
