@@ -26,42 +26,54 @@ The app split in 3 parts
 ``` javascript
 	<Route path="/" exact component={Home} />
 	<Route path="/product/search" component={SearchResults} />
+	
 	<Route path="/register" exact render={() => (
 		!!window.localStorage.getItem('auth_token')
 			? <Redirect to='/' />
 			: <Register />
     )} />
+	
 	<Route path="/login" exact render={() => (
 		!!window.localStorage.getItem('auth_token')
 			? <Redirect to='/' />
 			: <Login />
     )} />
+	
     <Route path="/logout" exact component={Logout} />
-    <AuthRoute path="/product/create" exact
+    
+	<AuthRoute path="/product/create" exact
 		component={ProductCreate}
         allowedRoles={['Admin']}
         isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+	
 	<AuthRoute path="/product/edit/:id"
-		component={ProductEdit}
-        allowedRoles={['Admin']}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
-    <Route path="/product/details/:id" component={ProductDetails} />
-    <AuthRoute path="/product/delete/:id"
+	component={ProductEdit}
+			allowedRoles={['Admin']}
+			isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+    
+	<Route path="/product/details/:id" component={ProductDetails} />
+    
+	<AuthRoute path="/product/delete/:id"
 		component={ProductDelete}
-        allowedRoles={['Admin']}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
-    <AuthRoute path="/orders/pending" exact
+			allowedRoles={['Admin']}
+			isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+    
+	<AuthRoute path="/orders/pending" exact
 		component={OrdersPending}
 		allowedRoles={['Admin']}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
-    <Route path="/orders/checkout" component={Checkout} />
-    <AuthRoute path="/user/orders"
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+    
+	<Route path="/orders/checkout" component={Checkout} />
+    
+	<AuthRoute path="/user/orders"
 		component={UserOrders}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
-    <AuthRoute path="/user/reviews"
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+    
+	<AuthRoute path="/user/reviews"
 		component={UserReviews}
-        isLoggedIn={!!window.localStorage.getItem('auth_token')} />
-    <Route component={NotFound} />
+		isLoggedIn={!!window.localStorage.getItem('auth_token')} />
+    
+	<Route component={NotFound} />
 ```
 ## Services
  AuthenticationService handles user requests.
